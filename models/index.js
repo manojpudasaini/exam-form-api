@@ -45,6 +45,7 @@ db.Sequelize = Sequelize;
 
 db.subjects = require("./subject.model")(sequelize, Sequelize);
 db.barriers = require("./barrier.model")(sequelize, Sequelize);
+db.students=require("./student.model")(sequelize,Sequelize);
 
 db.subjects.hasOne(db.barriers);
 db.barriers.belongsTo(db.subjects);
