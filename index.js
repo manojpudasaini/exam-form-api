@@ -8,7 +8,7 @@ app.use(express.urlencoded({ extended: true }));
 global.__basedir = __dirname + "/.";
 const PORT = 5000;
 
-db.sequelize.sync({ force: true }).then(() => {
+db.sequelize.sync().then(() => {
   app.listen(PORT, async () => {
     console.log(`Server is running at port ${PORT}`);
     try {

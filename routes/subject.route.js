@@ -10,8 +10,9 @@ router.post(
   subjectController.postSubjectDetails
 );
 
-router.get("/", subjectController.getSubjectDetails);
+router.get("/getall", subjectController.getSubjectDetails);
+router.get("/get", subjectController.getSubjectByIdandSem);
 
-router.put("/:code", subjectController.updateSubjectDetails);
+router.put("/update/:code", subjectController.updateSubjectDetails);
 
 module.exports = router;
