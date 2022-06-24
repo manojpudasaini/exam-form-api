@@ -2,6 +2,7 @@ const readXlsxFile = require("read-excel-file/node");
 const db = require("../models");
 const Subject = db.subjects;
 const Barrier = db.barriers;
+const Concurrent = db.concurrents;
 
 // exports.postSubjectDetails = async (req, res) => {
 //   if (!req.body) {
@@ -60,6 +61,8 @@ exports.postSubjectDetails = async (req, res) => {
       rows.shift();
 
       let subjects = [];
+      let barrierSubjects = [];
+      let concurrentSubjects = [];
       rows.forEach((row) => {
         let subject = {
           name: row[0],
@@ -69,11 +72,30 @@ exports.postSubjectDetails = async (req, res) => {
           barrier: row[4],
           semester: row[5],
           program: "BEIT",
+          hasBarrier: row[4] ? true : false,
+          hasConcurrent: row[3] ? true : false,
         };
         subjects.push(subject);
+        if (subject.hasBarrier) {
+          barrierList = {
+            barrier: subject.barrier,
+
+            code: subject.code,
+          };
+          barrierSubjects.push(barrierList);
+        }
+        if (subject.hasConcurrent) {
+          concurrentList = {
+            concurrent: subject.concurrent,
+            code: subject.code,
+          };
+          concurrentSubjects.push(concurrentList);
+        }
       });
       await Subject.bulkCreate(subjects)
-        .then(() => {
+        .then(async () => {
+          await Barrier.bulkCreate(barrierSubjects);
+          await Concurrent.bulkCreate(concurrentSubjects);
           res.status(200).send({
             message: "Uploaded the file successfully: " + req.file.originalname,
           });
@@ -94,7 +116,10 @@ exports.postSubjectDetails = async (req, res) => {
 };
 
 exports.getSubjectDetails = async (req, res) => {
-  await Subject.findAll()
+  await Subject.findAll({
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
     .then((subjects) => {
       if (subjects.length == 0) {
         res.send("no subjects information ");
@@ -111,6 +136,7 @@ exports.getSubjectDetails = async (req, res) => {
 
 exports.updateSubjectDetails = async (req, res) => {
   const code = req.params.code;
+  console.log(code, "code from uri");
   await Subject.update(req.body, {
     where: { code: code },
   })
@@ -128,6 +154,28 @@ exports.updateSubjectDetails = async (req, res) => {
     .catch((err) => {
       res.status(500).send({
         message: "Error updating subject with code=" + code,
+      });
+    });
+};
+
+exports.getSubjectByIdandSem = async (req, res) => {
+  const sub = req.query;
+  // console.log("req query", code);
+  await Subject.findAll({
+    where: { code: sub.code, semester: sub.semester },
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      if (subjects.length == 0) {
+        res.send("no subjects information ");
+      } else {
+        res.send(subjects);
+      }
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
       });
     });
 };

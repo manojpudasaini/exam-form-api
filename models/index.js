@@ -45,8 +45,14 @@ db.Sequelize = Sequelize;
 
 db.subjects = require("./subject.model")(sequelize, Sequelize);
 db.barriers = require("./barrier.model")(sequelize, Sequelize);
+db.concurrents = require("./concurrent.model")(sequelize, Sequelize);
 
-db.subjects.hasOne(db.barriers);
+db.subjects.hasOne(db.barriers, { as: "barriers", foreignKey: "code" });
 db.barriers.belongsTo(db.subjects);
+db.subjects.hasOne(db.concurrents, {
+  as: "concurrents",
+  foreignKey: "code",
+});
+db.concurrents.belongsTo(db.subjects);
 
 module.exports = db;
