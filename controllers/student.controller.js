@@ -10,15 +10,16 @@ exports.postStudentDetails = async (req, res) => {
   }
   console.log(req.body, "body");
   const student = {
-    symbolnumber: req.body.symbolnumber,
-    registrationnumber: req.body.registrationnumber,
+    symbolNumber: req.body.symbolnumber,
+    registrationNumber: req.body.registrationnumber,
     name: req.body.name,
     photo: req.body.photo,
     email: req.body.email,
     password: req.body.password,
+    program: req.body.program,
     phone: req.body.phone,
   };
-  const snumber = await Student.findByPk(student.symbolnumber);
+  const snumber = await Student.findByPk(student.symbolNumber);
   if (snumber === null) {
     await Student.create(student)
       .then((result) => res.send(result))
@@ -35,36 +36,36 @@ exports.postStudentDetails = async (req, res) => {
   return;
 };
 
+// exports.getAllStudentDetails = async (req, res) => {
+//   try {
+//     const students = await Student.findAll();
+//     return res.json(students);
+//   } catch (err) {
+//     console.log(err);
+//     return res.status(500).json({ erroe: `something went wrong` });
+//   }
+// };
+
 exports.getAllStudentDetails = async (req, res) => {
-  try {
-    const students = await Student.findAll();
-    return res.json(students);
-  } catch (err) {
-    console.log(err);
-    return res.status(500).json({ erroe: `something went wrong` });
-  }
+  await Student.findAll()
+    .then((students) => {
+      if (Student.length == 0) {
+        res.send("no students information ");
+      } else {
+        res.send(students);
+      }
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
+      });
+    });
 };
 
-// exports.getAllStudentDetails = async (req, res) => {
-//     await Student.findAll()
-//       .then((students) => {
-//         if (Student.length == 0) {
-//           res.send("no students information ");
-//         } else {
-//           res.send(students);
-//         }
-//       })
-//       .catch((error) => {
-//         res.status(500).send({
-//           message: error.message || "failed to fetch requested information",
-//         });
-//       });
-//   };
-
 exports.updateStudentDetails = async (req, res) => {
-  const symbolnumber = req.params.symbolnumber;
+  const symbolnumber = req.params.symbolNumber;
   await Student.update(req.body, {
-    where: { symbolnumber: symbolnumber },
+    where: { symbolNumber: symbolnumber },
   })
     .then((num) => {
       if (num == 1) {
@@ -85,9 +86,9 @@ exports.updateStudentDetails = async (req, res) => {
 };
 
 exports.deleteStudentDetails = async (req, res) => {
-  const symbolnumber = req.params.symbolnumber;
+  const symbolnumber = req.params.symbolNumber;
   await Student.destroy({
-    where: { symbolnumber: symbolnumber },
+    where: { symbolNumber: symbolnumber },
   })
     .then((num) => {
       if (num == 1) {
@@ -124,14 +125,14 @@ exports.deleteAllStudentsDetails = async (req, res) => {
 };
 
 exports.findOneStudent = async (req, res) => {
-  const symbolnumber = req.params.symbolnumber;
+  const symbolnumber = req.params.symbolNumber;
   await Student.findByPk(symbolnumber)
     .then((data) => {
       if (data) {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Student with symbolnumber=${symbolnumber}.`,
+          message: `Cannot find Student with symbolnumber=${symbolNumber}.`,
         });
       }
     })
