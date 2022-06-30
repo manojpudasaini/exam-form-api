@@ -41,14 +41,14 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    password: {
+    phone: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {
         notEmpty: true,
       },
     },
-    phone: {
+    firebase_id: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

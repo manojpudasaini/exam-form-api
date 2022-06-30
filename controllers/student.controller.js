@@ -1,6 +1,6 @@
 const db = require("../models");
 const Student = db.students;
-
+const { cloudinary } = require("../utils/cloudinary");
 exports.postStudentDetails = async (req, res) => {
   if (!req.body) {
     res.status(400).send({
@@ -9,15 +9,28 @@ exports.postStudentDetails = async (req, res) => {
     return;
   }
   console.log(req.body, "body");
+  try {
+    const Img = req.body.photo;
+    var uploadedResponse = await cloudinary.uploader.upload(Img, {
+      upload_preset: "exam-form-users",
+    });
+  } catch (error) {
+    console.log(error.message);
+    res.status(500).send({
+      message: error.message || "Error while uploading to cloudinary",
+    });
+    return;
+  }
   const student = {
-    symbolNumber: req.body.symbolnumber,
-    registrationNumber: req.body.registrationnumber,
+    symbolNumber: req.body.symbolNumber,
+    registrationNumber: req.body.registrationNumber,
     name: req.body.name,
-    photo: req.body.photo,
+    photo: uploadedResponse.url,
     email: req.body.email,
     password: req.body.password,
     program: req.body.program,
     phone: req.body.phone,
+    firebase_id: req.body.firebase_id,
   };
   const snumber = await Student.findByPk(student.symbolNumber);
   if (snumber === null) {
@@ -132,13 +145,32 @@ exports.findOneStudent = async (req, res) => {
         res.send(data);
       } else {
         res.status(404).send({
-          message: `Cannot find Student with symbolnumber=${symbolNumber}.`,
+          message: `Cannot find Student with symbolnumber=${symbolnumber}.`,
         });
       }
     })
     .catch((err) => {
       res.status(500).send({
         message: "Error retrieving Student with id=" + symbolnumber,
+      });
+    });
+};
+
+exports.getStudentByFirebaseId = async (req, res) => {
+  const f_id = req.params.f_id;
+  await Student.findOne({ where: { firebase_id: f_id } })
+    .then((data) => {
+      if (data) {
+        res.status(200).json(data);
+      } else {
+        res.status(404).send({
+          message: `Cannot find Student with symbolnumber=${f_id}.`,
+        });
+      }
+    })
+    .catch((err) => {
+      res.status(500).send({
+        message: "Error retrieving Student with id=" + f_id,
       });
     });
 };
