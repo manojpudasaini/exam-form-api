@@ -167,11 +167,7 @@ exports.getSubjectByIdandSem = async (req, res) => {
     include: ["barriers", "concurrents"],
   })
     .then((subjects) => {
-      if (subjects.length == 0) {
-        res.send("no subjects information ");
-      } else {
-        res.send(subjects);
-      }
+      res.json({ data: subjects });
     })
     .catch((error) => {
       res.status(500).send({
