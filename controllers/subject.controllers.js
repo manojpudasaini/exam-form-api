@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const readXlsxFile = require("read-excel-file/node");
 const db = require("../models");
 const Subject = db.subjects;
@@ -173,5 +174,43 @@ exports.getSubjectByIdandSem = async (req, res) => {
       res.status(500).send({
         message: error.message || "failed to fetch requested information",
       });
+    });
+};
+
+exports.getSubjectsUptoSem = async (req, res) => {
+  const sem = req.params.sem;
+  await Subject.findAll({
+    where: { semester: { [Op.lt]: sem } },
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      res.json({ data: subjects });
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message,
+      });
+      return;
+    });
+};
+
+exports.getSubjectsBySem = async (req, res) => {
+  const sem = req.params.sem;
+  await Subject.findAll({
+    where: { semester: sem },
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      res.json({ data: subjects });
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message,
+      });
+      return;
     });
 };

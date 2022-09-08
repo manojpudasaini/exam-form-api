@@ -12,7 +12,8 @@ router.post(
 
 router.get("/getall", subjectController.getSubjectDetails);
 router.get("/get", subjectController.getSubjectByIdandSem);
-
+router.get("/getuptosem/:sem", subjectController.getSubjectsUptoSem);
+router.get("/getbysem/:sem", subjectController.getSubjectsBySem);
 router.put("/update/:code", subjectController.updateSubjectDetails);
 
 module.exports = router;
