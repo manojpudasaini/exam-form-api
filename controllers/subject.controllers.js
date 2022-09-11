@@ -135,6 +135,22 @@ exports.getSubjectDetails = async (req, res) => {
     });
 };
 
+exports.getByCode = async (req, res) => {
+  const code = req.params.code;
+  await Subject.findOne({
+    where: { code: code },
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      res.send(subjects);
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
+      });
+    });
+};
+
 exports.updateSubjectDetails = async (req, res) => {
   const code = req.params.code;
   console.log(code, "code from uri");

@@ -10,6 +10,7 @@ router.post(
   subjectController.postSubjectDetails
 );
 
+router.get("/getbycode/:code", subjectController.getByCode);
 router.get("/getall", subjectController.getSubjectDetails);
 router.get("/get", subjectController.getSubjectByIdandSem);
 router.get("/getuptosem/:sem", subjectController.getSubjectsUptoSem);
