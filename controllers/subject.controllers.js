@@ -232,12 +232,17 @@ exports.getSubjectsUptoSem = async (req, res) => {
 exports.getSubjectsBySem = async (req, res) => {
   const sem = req.params.sem;
   await Subject.findAll({
-    where: { semester: sem },
+    raw: true,
+    where: { semester: { [Op.lte]: sem } },
     order: [["semester", "ASC"]],
     include: ["barriers", "concurrents"],
   })
     .then((subjects) => {
-      res.json({ data: subjects });
+      const subj = subjects.map((sub) => {
+        console.log(sub);
+        return { ...sub, type: sub.semester == sem ? "regular" : "back" };
+      });
+      res.json(subj);
       return;
     })
     .catch((error) => {
