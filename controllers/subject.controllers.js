@@ -122,11 +122,28 @@ exports.getSubjectDetails = async (req, res) => {
     include: ["barriers", "concurrents"],
   })
     .then((subjects) => {
-      if (subjects.length == 0) {
-        res.send("no subjects information ");
-      } else {
-        res.send(subjects);
-      }
+      res.json(subjects);
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
+      });
+    });
+};
+
+exports.getCodeCredit = async (req, res) => {
+  await Subject.findAll()
+    .then((subjects) => {
+      let s = [];
+      subjects?.map((sub) => {
+        s.push({
+          code: sub.code,
+          credits: sub.credits,
+        });
+      });
+      res.json(s);
+      return;
     })
     .catch((error) => {
       res.status(500).send({
