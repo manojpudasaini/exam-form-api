@@ -9,7 +9,7 @@ app.use(express.json({ limit: "15mb" }));
 app.use(express.urlencoded({ limit: "15mb", extended: true }));
 app.use(bodyParser.json());
 global.__basedir = __dirname + "/.";
-const PORT = 6000;
+const PORT = 5000;
 
 db.sequelize.sync().then(() => {
   app.listen(PORT, async () => {

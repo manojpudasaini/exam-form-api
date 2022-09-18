@@ -229,6 +229,25 @@ exports.getSubjectsUptoSem = async (req, res) => {
     });
 };
 
+exports.getSubjectsForCurrentSem = async (req, res) => {
+  const sem = req.params.sem;
+  await Subject.findAll({
+    where: { semester: sem },
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      res.json({ data: subjects });
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message,
+      });
+      return;
+    });
+};
+
 exports.getSubjectsBySem = async (req, res) => {
   const sem = req.params.sem;
   await Subject.findAll({

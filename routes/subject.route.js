@@ -16,6 +16,7 @@ router.get("/get", subjectController.getSubjectByIdandSem);
 router.get("/getcodecredit", subjectController.getCodeCredit);
 router.get("/getuptosem/:sem", subjectController.getSubjectsUptoSem);
 router.get("/getbysem/:sem", subjectController.getSubjectsBySem);
+router.get("/getcurrentsem/:sem", subjectController.getSubjectsForCurrentSem);
 router.put("/update/:code", subjectController.updateSubjectDetails);
 
 module.exports = router;
