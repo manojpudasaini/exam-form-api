@@ -152,6 +152,27 @@ exports.getCodeCredit = async (req, res) => {
     });
 };
 
+exports.getSubByCode = async (req, res) => {
+  await Subject.findAll()
+    .then((subjects) => {
+      let s = [];
+      subjects?.map((sub) => {
+        s.push({
+          code: sub.code,
+          name: sub.name,
+          credits: sub.credits,
+        });
+      });
+      res.json(s);
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
+      });
+    });
+};
+
 exports.getByCode = async (req, res) => {
   const code = req.params.code;
   await Subject.findOne({
