@@ -8,6 +8,7 @@ app.use(cors());
 app.use(express.json({ limit: "15mb" }));
 app.use(express.urlencoded({ limit: "15mb", extended: true }));
 app.use(bodyParser.json());
+const path = require("path");
 global.__basedir = __dirname + "/.";
 const PORT = 5000;
 
@@ -27,3 +28,6 @@ const subjectRoutes = require("./routes/subject.route");
 app.use("/api/v1/subject", subjectRoutes);
 const studentRoutes = require("./routes/student.route");
 app.use("/api/v1/student", studentRoutes);
+
+const formRoutes = require("./routes/form.route");
+app.use("/api/v1/form", formRoutes);

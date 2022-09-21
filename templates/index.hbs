@@ -1,0 +1,298 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Exam-Form</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.4.1/dist/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+
+
+    
+  </head>
+  <body>
+     <div class="container text-primary" style="position:relative; padding: 20px; break-after: page;">
+      <div class="row" style="width:100%;">
+        <div class="col-xs-2">
+        <img
+            src="https://res.cloudinary.com/odin/image/upload/v1663686956/Google/logo_zgej4h.png"
+            alt="pu-logo"
+            height="80px"
+            width="80px"
+          >
+        </div>
+        <div class="col-xs-8">
+          <div class="row">
+            <h4 class="text-primary text-center" style="font-size: 18px; font-weight:600;">POKHARA UNIVERSITY</h5>
+            <p  class="text-center" style=" font-size: 18px; font-weight:800;">Office of the Controller of
+              Examinations</p>
+            <p class="text-primary text-sm text-center" style="font-size:16px;">Application Form</p>
+            <h4 class="text-primary text-center" style="font-size:16px; font-weight:600;">Semester/Trimester/Yearly
+              Examination</h4>
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <img src={{photo}} alt="user-photo" height="120px" width="120px"/>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px; font-size: 16px;">
+        <div class="col-xs-6">
+          <p>Exam Roll No. : <span style="color: black">{{symbolNumber}}</span></p>
+        </div>
+        <div class="col-xs-6">
+ <p>Exam Center : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;"></span></p>   
+        </div>
+         <div class="col-xs-6">
+          <p>Level : <span style="color: black ;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Bachelor's</span></p>
+        </div>
+        <div class="col-xs-6">
+      <p>Program : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">BE-IT</span></p>   
+        </div>
+           <div class="col-xs-6">
+          <p>Semester/Trimester/Year : <span style="color: black ;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Fall</span></p>
+        </div>
+        <div class="col-xs-6">
+      <p>Year: <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">2021</span></p>   
+        </div>
+             <div class="row" >
+            <div class="col-xs-3">
+            </div>
+ <div class="col-xs-3">
+  <p>First Name</p>
+            </div>
+             <div class="col-xs-3">
+               <p>Middle Name</p>
+            </div>
+             <div class="col-xs-3">
+               <p>Last Name</p>
+            </div>
+          </div>
+        <div class="row row-no-gutters">
+          <div class="col-xs-6" style=" height:22px; width:80px; margin: 0 0 0 14px;">
+
+            <p style="border: 1px solid #007bff;">Name</p>
+          </div>
+
+     
+          <div class="col-md-6">
+
+        <input type="text" value="{{{name}}}" style="
+         border: 1px solid #007bff;
+  background: linear-gradient(to left, #007bff 1px, transparent 0);
+  background-size: 30px 1px;
+  width: 600px;
+  color:black; 
+  font: 12px; 
+  letter-spacing:20px;
+  text-transform: uppercase;" />
+          </div>
+          </div>
+         <div class="row row-no-gutters" style="margin:8px 0 4px 14px;">
+          <div class="col-xs-6" style=" width:180px; height:22px;">
+
+            <p style="border: 1px solid #007bff;">P.U. Registration No. </p>
+          </div>
+          <div class="col-md-6">
+
+        <input type="text" value={{registrationNumber}} style=" border: 1px solid #007bff;
+  background: linear-gradient(to left, #007bff 1px, transparent 0);
+  background-size: 30px 1px;
+  width: 500px;
+  color:black; 
+  font: 12px; 
+  letter-spacing:22px;
+  text-transform: uppercase;" />
+          </div>
+          </div>
+         <div class="col-xs-12">
+          <p>Name of the College : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Everest Engineering College</span></p>
+        </div>
+        <div class="col-xs-12">
+
+        <p>For the appearance in the examination of following courses as per course registered.</p>
+        </div>
+      </div>
+      <h4 class="text-bold">
+        Regular Courses
+      </h4>
+      <table class="table table-sm table-bordered" style="border-color:#007bff;">
+        <thead style="color:#007bff; ">
+          <tr style="border-color:#007bff;">
+            <th style="border-color:#007bff; width: 50px;">S.No.</th>
+            <th style="border-color:#007bff; width: 150px;">Course Code</th>
+            <th style="border-color:#007bff;  width: 350px;">Course Title</th>
+            <th style="border-color:#007bff;  width: 150px;">Credit</th>
+            <th style="border-color:#007bff;  width: 150px;">Remarks</th>
+          </tr>
+        </thead>
+        <tbody style="border-color:#007bff;">
+          {{#each regular as |sub|}}
+            <tr style="border-color:#007bff;">
+              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{sub.code}}</td>
+              <td style="border-color:#007bff;">{{sub.name}}</td>
+              <td style="border-color:#007bff;">{{sub.credits}}</td>
+              <td style="border-color:#007bff;">{{sub.remarks}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <h4 class="text-bold">
+        Re-registered Courses
+      </h4>
+      <table class="table table-sm table-bordered" style="border-color:#007bff;">
+        <thead style="color:#007bff; ">
+          <tr style="border-color:#007bff;">
+            <th style="border-color:#007bff; width: 50px;">S.No.</th>
+            <th style="border-color:#007bff; width: 150px;">Course Code</th>
+            <th style="border-color:#007bff;  width: 350px;">Course Title</th>
+            <th style="border-color:#007bff;  width: 150px;">Credit</th>
+            <th style="border-color:#007bff;  width: 150px;">Remarks</th>
+          </tr>
+        </thead>
+        <tbody style="border-color:#007bff;">
+          {{#each back as |bac|}}
+            <tr style="border-color:#007bff;">
+              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{bac.code}}</td>
+              <td style="border-color:#007bff;">{{bac.name}}</td>
+              <td style="border-color:#007bff;">{{bac.credits}}</td>
+              <td style="border-color:#007bff;">{{bac.remarks}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+        <div class="row row-no-gutters" style="font-size:12px; margin-top: 100px;">
+          <div class="col col-xs-4">
+
+          <p style="font-size: 14px;">Signature of the Student : <span>.............</span></p>
+          </div>
+              <div class="col col-xs-4">
+
+          <p style="font-size: 14px;">Form checked and accepted by : <span>...........</span></p>
+          </div>
+        <div class="col col-xs-4 text-right" >
+
+          <p style="font-size: 14px;">Date : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{date}}</span></p>
+        </div>
+        </div>
+      </div>
+    <div class="container text-primary" style="position:relative; padding: 20px;">
+      <div class="row" style="width:100%;">
+        <div class="col-xs-2">
+          <img
+            src="https://res.cloudinary.com/odin/image/upload/v1663686956/Google/logo_zgej4h.png"
+            alt="pu-logo"
+            height="80px"
+            width="80px"
+          >
+        </div>
+        <div class="col-xs-8">
+          <div class="row">
+            <h4 class="text-primary text-center" style="font-size: 18px; font-weight:600;">POKHARA UNIVERSITY</h5>
+            <p  class="text-center" style=" font-size: 18px; font-weight:800;">Office of the Controller of
+              Examinations</p>
+            <h4 class="text-primary text-center" style="font-size:16px; font-weight:600;">Semester/Trimester/Yearly
+              Examination</h5>
+            <p class="text-primary text-sm text-center" style="font-size:16px; font-weight:600;">Entrance Card</p>
+          </div>
+        </div>
+        <div class="col-xs-2">
+          <img src={{photo}} alt="user-photo" height="120px" width="120px"/>
+        </div>
+      </div>
+      <div class="row" style="margin-top: 10px; font-size: 16px;">
+        <div class="col-xs-6">
+          <p>Exam Roll No. : <span style="color: black">{{symbolNumber}}</span></p>
+        </div>
+        <div class="col-xs-6">
+ <p>Exam Center : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;"></span></p>   
+        </div>
+        <div class="col-xs-12">
+          <p>P.U Registration No. : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{registrationNumber}}</span></p>
+        </div>
+        <div class="col-xs-12">
+          <p>Name of the Student : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{name}}</span></p>
+        </div>
+         <div class="col-xs-6">
+          <p>Level : <span style="color: black ;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Bachelor's</span></p>
+        </div>
+        <div class="col-xs-6">
+      <p>Program : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">BE-IT</span></p>   
+        </div>
+           <div class="col-xs-6">
+          <p>Semester/Trimester/Year : <span style="color: black ;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Fall</span></p>
+        </div>
+        <div class="col-xs-6">
+      <p>Year: <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">2021</span></p>   
+        </div>
+         <div class="col-xs-12">
+          <p>Name of the College : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Everest Engineering College</span></p>
+        </div>
+        <div class="col-xs-12">
+
+        <p>For the appearance in the examination of following courses as per course registered.</p>
+        </div>
+      </div>
+      <h4 class="text-bold">
+        Regular Courses
+      </h4>
+      <table class="table table-sm table-bordered" style="border-color:#007bff;">
+        <thead style="color:#007bff; ">
+          <tr style="border-color:#007bff;">
+            <th style="border-color:#007bff; width: 50px;">S.No.</th>
+            <th style="border-color:#007bff; width: 150px;">Course Code</th>
+            <th style="border-color:#007bff;  width: 350px;">Course Title</th>
+            <th style="border-color:#007bff;  width: 150px;">Credit</th>
+            <th style="border-color:#007bff;  width: 150px;">Remarks</th>
+          </tr>
+        </thead>
+        <tbody style="border-color:#007bff;">
+          {{#each regular as |sub|}}
+            <tr style="border-color:#007bff;">
+              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{sub.code}}</td>
+              <td style="border-color:#007bff;">{{sub.name}}</td>
+              <td style="border-color:#007bff;">{{sub.credits}}</td>
+              <td style="border-color:#007bff;">{{sub.remarks}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+      <h4 class="text-bold">
+        Re-registered Courses
+      </h4>
+      <table class="table table-sm table-bordered" style="border-color:#007bff;">
+        <thead style="color:#007bff; ">
+          <tr style="border-color:#007bff;">
+            <th style="border-color:#007bff; width: 50px;">S.No.</th>
+            <th style="border-color:#007bff; width: 150px;">Course Code</th>
+            <th style="border-color:#007bff;  width: 350px;">Course Title</th>
+            <th style="border-color:#007bff;  width: 150px;">Credit</th>
+            <th style="border-color:#007bff;  width: 150px;">Remarks</th>
+          </tr>
+        </thead>
+        <tbody style="border-color:#007bff;">
+          {{#each back as |bac|}}
+            <tr style="border-color:#007bff;">
+              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{bac.code}}</td>
+              <td style="border-color:#007bff;">{{bac.name}}</td>
+              <td style="border-color:#007bff;">{{bac.credits}}</td>
+              <td style="border-color:#007bff;">{{bac.remarks}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
+      </table>
+        <div class="row" style=" width:100%; margin-top: 100px;">
+          <div class="col col-xs-6">
+
+          <p style="font-size: 16px;">Signature of the Student : <span>.........................</span></p>
+          </div>
+        <div class="col col-xs-6 text-right" >
+
+          <p style="font-size: 16px;">Date : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{date}}</span></p>
+        </div>
+        </div>
+      </div>
+  </body>
+</html>
