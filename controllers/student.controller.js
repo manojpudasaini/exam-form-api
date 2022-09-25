@@ -24,7 +24,9 @@ exports.postStudentDetails = async (req, res) => {
   const student = {
     symbolNumber: req.body.symbolNumber,
     registrationNumber: req.body.registrationNumber,
-    name: req.body.name,
+    firstName: req.body.firstName,
+    middleName: req.body.middleName,
+    lastName: req.body.lastName,
     photo: uploadedResponse.url,
     email: req.body.email,
     password: req.body.password,

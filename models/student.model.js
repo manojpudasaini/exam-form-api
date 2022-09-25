@@ -13,7 +13,17 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       },
     },
-    name: {
+    firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate: {
+        notEmpty: true,
+      },
+    },
+    middleName: {
+      type: DataTypes.STRING,
+    },
+    lastName: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

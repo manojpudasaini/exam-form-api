@@ -48,10 +48,10 @@
       <p>Program : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">BE-IT</span></p>   
         </div>
            <div class="col-xs-6">
-          <p>Semester/Trimester/Year : <span style="color: black ;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Fall</span></p>
+          <p>Semester/Trimester/Year : <span style="color: black ;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{semester}}</span></p>
         </div>
         <div class="col-xs-6">
-      <p>Year: <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">2021</span></p>   
+      <p>Year: <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{year}}</span></p>   
         </div>
              <div class="row" >
             <div class="col-xs-3">
@@ -75,7 +75,7 @@
      
           <div class="col-md-6">
 
-        <input type="text" value="{{{name}}}" style="
+        <input type="text" value="{{{firstName}}} {{{middleName}}} {{{lastName}}}" style="
          border: 1px solid #007bff;
   background: linear-gradient(to left, #007bff 1px, transparent 0);
   background-size: 30px 1px;
@@ -83,6 +83,7 @@
   color:black; 
   font: 12px; 
   letter-spacing:20px;
+  text-indent: 5px;
   text-transform: uppercase;" />
           </div>
           </div>
@@ -127,7 +128,7 @@
         <tbody style="border-color:#007bff;">
           {{#each regular as |sub|}}
             <tr style="border-color:#007bff;">
-              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{counter @index}}</td>
               <td style="border-color:#007bff;">{{sub.code}}</td>
               <td style="border-color:#007bff;">{{sub.name}}</td>
               <td style="border-color:#007bff;">{{sub.credits}}</td>
@@ -152,7 +153,7 @@
         <tbody style="border-color:#007bff;">
           {{#each back as |bac|}}
             <tr style="border-color:#007bff;">
-              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{counter @index}}</td>
               <td style="border-color:#007bff;">{{bac.code}}</td>
               <td style="border-color:#007bff;">{{bac.name}}</td>
               <td style="border-color:#007bff;">{{bac.credits}}</td>
@@ -211,7 +212,7 @@
           <p>P.U Registration No. : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{registrationNumber}}</span></p>
         </div>
         <div class="col-xs-12">
-          <p>Name of the Student : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{name}}</span></p>
+          <p>Name of the Student : <span style="color: black;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">{{firstName}} {{middleName}} {{lastName}}</span></p>
         </div>
          <div class="col-xs-6">
           <p>Level : <span style="color: black ;text-decoration: underline; text-decoration-style: dotted; text-decoration-color: #007bff;">Bachelor's</span></p>
@@ -249,7 +250,7 @@
         <tbody style="border-color:#007bff;">
           {{#each regular as |sub|}}
             <tr style="border-color:#007bff;">
-              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{counter @index}}</td>
               <td style="border-color:#007bff;">{{sub.code}}</td>
               <td style="border-color:#007bff;">{{sub.name}}</td>
               <td style="border-color:#007bff;">{{sub.credits}}</td>
@@ -274,7 +275,7 @@
         <tbody style="border-color:#007bff;">
           {{#each back as |bac|}}
             <tr style="border-color:#007bff;">
-              <td style="border-color:#007bff;">{{@index}}</td>
+              <td style="border-color:#007bff;">{{counter @index}}</td>
               <td style="border-color:#007bff;">{{bac.code}}</td>
               <td style="border-color:#007bff;">{{bac.name}}</td>
               <td style="border-color:#007bff;">{{bac.credits}}</td>

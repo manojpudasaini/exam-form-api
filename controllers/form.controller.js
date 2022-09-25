@@ -5,7 +5,12 @@ const fs = require("fs-extra");
 const hbs = require("handlebars");
 
 const path = require("path");
+
+hbs.registerHelper("counter", function (num) {
+  return num + 1;
+});
 exports.createForm = async (req, res) => {
+  const id = req.params.id;
   const compile = async function (templateName, data) {
     const filePath = path.join(
       process.cwd(),
@@ -30,7 +35,7 @@ exports.createForm = async (req, res) => {
       await page.setContent(content);
       await page.emulateMediaType("screen");
       await page.pdf({
-        path: "output.pdf",
+        path: `${id}-form.pdf`,
         format: "A4",
         printBackground: true,
       });
@@ -43,4 +48,9 @@ exports.createForm = async (req, res) => {
       console.log(e);
     }
   })();
+};
+
+exports.sendPdf = async (req, res) => {
+  const id = req.params.id;
+  res.sendFile(`${__basedir}/${id}-form.pdf`);
 };

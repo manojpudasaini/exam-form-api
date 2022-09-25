@@ -31,3 +31,6 @@ app.use("/api/v1/student", studentRoutes);
 
 const formRoutes = require("./routes/form.route");
 app.use("/api/v1/form", formRoutes);
+
+const statusRoutes = require("./routes/status.route");
+app.use("/api/v1/status", statusRoutes);
