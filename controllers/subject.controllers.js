@@ -1,3 +1,4 @@
+const { Op } = require("sequelize");
 const readXlsxFile = require("read-excel-file/node");
 const db = require("../models");
 const Subject = db.subjects;
@@ -121,11 +122,65 @@ exports.getSubjectDetails = async (req, res) => {
     include: ["barriers", "concurrents"],
   })
     .then((subjects) => {
-      if (subjects.length == 0) {
-        res.send("no subjects information ");
-      } else {
-        res.send(subjects);
-      }
+      res.json(subjects);
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
+      });
+    });
+};
+
+exports.getCodeCredit = async (req, res) => {
+  await Subject.findAll()
+    .then((subjects) => {
+      let s = [];
+      subjects?.map((sub) => {
+        s.push({
+          code: sub.code,
+          credits: sub.credits,
+        });
+      });
+      res.json(s);
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
+      });
+    });
+};
+
+exports.getSubByCode = async (req, res) => {
+  await Subject.findAll()
+    .then((subjects) => {
+      let s = [];
+      subjects?.map((sub) => {
+        s.push({
+          code: sub.code,
+          name: sub.name,
+          credits: sub.credits,
+        });
+      });
+      res.json(s);
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message || "failed to fetch requested information",
+      });
+    });
+};
+
+exports.getByCode = async (req, res) => {
+  const code = req.params.code;
+  await Subject.findOne({
+    where: { code: code },
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      res.send(subjects);
     })
     .catch((error) => {
       res.status(500).send({
@@ -167,15 +222,73 @@ exports.getSubjectByIdandSem = async (req, res) => {
     include: ["barriers", "concurrents"],
   })
     .then((subjects) => {
-      if (subjects.length == 0) {
-        res.send("no subjects information ");
-      } else {
-        res.send(subjects);
-      }
+      res.json({ data: subjects });
     })
     .catch((error) => {
       res.status(500).send({
         message: error.message || "failed to fetch requested information",
       });
+    });
+};
+
+exports.getSubjectsUptoSem = async (req, res) => {
+  const sem = req.params.sem;
+  await Subject.findAll({
+    where: { semester: { [Op.lt]: sem } },
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      res.json({ data: subjects });
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message,
+      });
+      return;
+    });
+};
+
+exports.getSubjectsForCurrentSem = async (req, res) => {
+  const sem = req.params.sem;
+  await Subject.findAll({
+    where: { semester: sem },
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      res.json({ data: subjects });
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message,
+      });
+      return;
+    });
+};
+
+exports.getSubjectsBySem = async (req, res) => {
+  const sem = req.params.sem;
+  await Subject.findAll({
+    raw: true,
+    where: { semester: { [Op.lte]: sem } },
+    order: [["semester", "ASC"]],
+    include: ["barriers", "concurrents"],
+  })
+    .then((subjects) => {
+      const subj = subjects.map((sub) => {
+        console.log(sub);
+        return { ...sub, type: sub.semester == sem ? "regular" : "back" };
+      });
+      res.json(subj);
+      return;
+    })
+    .catch((error) => {
+      res.status(500).send({
+        message: error.message,
+      });
+      return;
     });
 };

@@ -1,12 +1,14 @@
 const express = require("express");
-const bodyParser = require("body-parser")
+const bodyParser = require("body-parser");
 const { sequelize } = require("./models");
 const db = require("./models");
 const app = express();
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const cors = require("cors");
+app.use(cors());
+app.use(express.json({ limit: "15mb" }));
+app.use(express.urlencoded({ limit: "15mb", extended: true }));
 app.use(bodyParser.json());
+const path = require("path");
 global.__basedir = __dirname + "/.";
 const PORT = 5000;
 
@@ -24,5 +26,11 @@ db.sequelize.sync().then(() => {
 
 const subjectRoutes = require("./routes/subject.route");
 app.use("/api/v1/subject", subjectRoutes);
-const studentRoutes=require("./routes/student.route")
-app.use("/api/v1/student",studentRoutes);
+const studentRoutes = require("./routes/student.route");
+app.use("/api/v1/student", studentRoutes);
+
+const formRoutes = require("./routes/form.route");
+app.use("/api/v1/form", formRoutes);
+
+const statusRoutes = require("./routes/status.route");
+app.use("/api/v1/status", statusRoutes);
